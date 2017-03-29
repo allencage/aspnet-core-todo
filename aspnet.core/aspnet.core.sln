@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aspnet.core.webapi", "aspnet.core.webapi\aspnet.core.webapi.csproj", "{43378D98-78E9-4661-9B4D-6EAEEECE6372}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{0CFD9686-8CFF-40B0-A66F-B3569E96095E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.EF.Core", "Repository.EF.Core\Repository.EF.Core.csproj", "{AA763CEE-DF6C-4D17-BEC6-8B05B3F96EEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43378D98-78E9-4661-9B4D-6EAEEECE6372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43378D98-78E9-4661-9B4D-6EAEEECE6372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43378D98-78E9-4661-9B4D-6EAEEECE6372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43378D98-78E9-4661-9B4D-6EAEEECE6372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA763CEE-DF6C-4D17-BEC6-8B05B3F96EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA763CEE-DF6C-4D17-BEC6-8B05B3F96EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA763CEE-DF6C-4D17-BEC6-8B05B3F96EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA763CEE-DF6C-4D17-BEC6-8B05B3F96EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AA763CEE-DF6C-4D17-BEC6-8B05B3F96EEC} = {0CFD9686-8CFF-40B0-A66F-B3569E96095E}
+	EndGlobalSection
+EndGlobal
