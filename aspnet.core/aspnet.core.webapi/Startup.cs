@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using Repository.EF.Core;
 
 namespace aspnet.core.webapi
@@ -28,11 +29,11 @@ namespace aspnet.core.webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataModel>();
+            services.AddDbContext<DataModel>(opt => opt.UseInMemoryDatabase());
             // Add framework services.
             services.AddMvc();
 
-            services.AddScoped<IRepository<Todo>, TodoRepository>();
+            services.AddScoped<ITodoRepository, TodoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

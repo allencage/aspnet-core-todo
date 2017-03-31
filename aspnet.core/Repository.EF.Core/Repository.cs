@@ -19,22 +19,21 @@ namespace Repository.EF.Core
                 return _entities;
             }
         }
-
         public Repository(DbContext context)
         {
             _context = context;
         }
-        public void Add(T entry)
+        public void Add(T entry, Action<Exception> callback = null)
         {
             try
             {
                 if (entry == null)
-                    throw new ArgumentNullException("entry");
+                    throw new ArgumentNullException(nameof(entry));
                 Entities.Add(entry);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                callback?.Invoke(ex);
             }
         }
 
@@ -43,23 +42,23 @@ namespace Repository.EF.Core
             throw new NotImplementedException();
         }
 
-        public void Find(Expression<Func<T, bool>> predicate)
+        public T Find(Func<T, bool> predicate)
         {
             throw new NotImplementedException();
         }
 
-        public T Get(long id)
+        public T Get(long id, Action<Exception> callback = null)
         {
             try
             {
                 var result = Entities.Find(id);
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                callback?.Invoke(ex);
             }
+            return null;
         }
 
         public void Update(T entry)
@@ -67,20 +66,21 @@ namespace Repository.EF.Core
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(Action<Exception> callback = null)
         {
             try
             {
                 var results = Entities.AsEnumerable();
                 return results;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                callback?.Invoke(ex);
             }
+            return new List<T>();
         }
 
-        public void Commit()
+        public void Commit(Action<Exception> callback = null)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace Repository.EF.Core
             }
             catch (Exception ex)
             {
-                throw;
+                callback?.Invoke(ex);
             }
         }
     }

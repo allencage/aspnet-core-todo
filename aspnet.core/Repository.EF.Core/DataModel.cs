@@ -12,6 +12,6 @@ namespace Repository.EF.Core
         {
         }
 
-        public DbSet<Todo> Todo { get; set; }
+        public DbSet<Todo> TodoItems { get; set; }
     }
 }
