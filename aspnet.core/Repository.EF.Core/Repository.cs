@@ -37,9 +37,20 @@ namespace Repository.EF.Core
             }
         }
 
-        public void Delete(T entry)
+        public void Delete(T entry, Action<Exception> callback)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (entry == null)
+                {
+                    throw new ArgumentNullException(nameof(entry));
+                }
+                _context.Remove(entry);
+            }
+            catch (Exception ex)
+            {
+                callback?.Invoke(ex);
+            }
         }
 
         public T Find(Func<T, bool> predicate)
@@ -61,9 +72,20 @@ namespace Repository.EF.Core
             return null;
         }
 
-        public void Update(T entry)
+        public void Update(T entry, Action<Exception> callback = null)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (entry == null)
+                {
+                    throw new ArgumentNullException(nameof(entry));
+                }
+                Entities.Update(entry);
+            }
+            catch (Exception ex)
+            {
+                callback?.Invoke(ex);
+            }
         }
 
         public IEnumerable<T> GetAll(Action<Exception> callback = null)
@@ -85,6 +107,35 @@ namespace Repository.EF.Core
             try
             {
                 _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                callback?.Invoke(ex);
+            }
+        }
+
+        public void AddRange(IEnumerable<T> list, Action<Exception> callback = null)
+        {
+            if(list == null || !list.Any())
+            {
+                return;
+            }
+            foreach (var item in list)
+            {
+                Add(item);
+            }
+        }
+
+        public void Delete(long id, Action<Exception> callback = null)
+        {
+            try
+            {
+                var entity = Entities.Find(id);
+                if (entity == null)
+                {
+                    throw new ArgumentNullException(nameof(entity));
+                }
+                Entities.Remove(entity);
             }
             catch (Exception ex)
             {
