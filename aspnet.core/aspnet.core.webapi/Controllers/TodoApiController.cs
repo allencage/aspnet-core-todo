@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository.EF.Core;
+using Repository.EF.Core.Models;
 
 namespace aspnet.core.webapi.Controllers
 {
@@ -12,8 +9,8 @@ namespace aspnet.core.webapi.Controllers
     [Route("api/[controller]")]
     public class TodoApiController : Controller
     {
-        private readonly ITodoRepository _repo;
-        public TodoApiController(ITodoRepository repo)
+        private readonly IRepository<Todo> _repo;
+        public TodoApiController(IRepository<Todo> repo)
         {
             _repo = repo;
         }
@@ -39,8 +36,43 @@ namespace aspnet.core.webapi.Controllers
             if (item == null)
                 return BadRequest();
             _repo.Add(item);
+            _repo.Commit();
 
             return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(long id, [FromBody] Todo item)
+        {   
+            if (item == null || item.Id != id)
+                return BadRequest();
+
+            var todo = _repo.Get(id);
+            if (todo == null)
+                return NotFound();
+
+            todo.IsCompleted = item.IsCompleted;
+            todo.Content = item.Content;
+
+            _repo.Update(todo);
+            _repo.Commit();
+
+            return new NoContentResult();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            var todo = _repo.Get(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+
+            _repo.Delete(todo);
+            _repo.Commit();
+
+            return new NoContentResult();
         }
     }
 }

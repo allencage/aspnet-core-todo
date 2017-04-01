@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Repository.EF.Core
+namespace Repository.EF.Core.Models
 {
     public class Todo
     {

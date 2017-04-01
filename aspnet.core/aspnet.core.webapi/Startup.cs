@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Repository.EF.Core;
+using Repository.EF.Core.Models;
 
 namespace aspnet.core.webapi
 {
@@ -33,7 +34,7 @@ namespace aspnet.core.webapi
             // Add framework services.
             services.AddMvc();
 
-            services.AddScoped<ITodoRepository, TodoRepository>();
+            services.AddScoped<IRepository<Todo>, TodoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
